@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Color Trading Demo</title>
+</head>
+<body>
+
+<h1>Color Trading Demo</h1>
+
+<button onclick="alert('Red')">Red</button>
+<button onclick="alert('Green')">Green</button>
+<button onclick="alert('Violet')">Violet</button>
+
+</body>
+</html>
