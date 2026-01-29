@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Color Trading Demo</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f2f2f2;
+text-align:center;
+}
+
+.box{
+width:350px;
+background:white;
+margin:40px auto;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px gray;
+}
+
+input,button{
+width:90%;
+padding:10px;
+margin:8px;
+font-size:16px;
+}
+
+button{
+background:green;
+color:white;
+border:none;
+border-radius:5px;
+}
+
+#game{display:none;}
+
+.color-btn{
+width:90px;
+padding:10px;
+margin:5px;
+color:white;
+border:none;
+}
+
+.red{background:red;}
+.green{background:green;}
+.violet{background:purple;}
+
+.num-btn{
+width:40px;
+height:40px;
+margin:4px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="box" id="login">
+
+<h2>Login / Register</h2>
+
+<input id="mobile" placeholder="Enter Mobile Number">
+
+<button onclick="login()">Login</button>
+
+<p id="msg"></p>
+
+</div>
+
+<!-- GAME -->
+<div class="box" id="game">
+
+<h2>Balance: ₹<span id="bal">1000</span></h2>
+
+<h3>Select Color</h3>
+
+<button class="color-btn red" onclick="betColor('Red')">Red</button>
+<button class="color-btn green" onclick="betColor('Green')">Green</button>
+<button class="color-btn violet" onclick="betColor('Violet')">Violet</button>
+
+<h3>Select Number</h3>
+
+<div id="nums"></div>
+
+<h3>Bet Amount</h3>
+
+<input id="amount" type="number" placeholder="Enter Amount">
+
+<button onclick="play()">Play</button>
+
+<h3 id="result"></h3>
+
+</div>
+
+<script>
+
+let balance=1000;
+let color="";
+let number="";
+
+for(let i=0;i<=9;i++){
+document.getElementById("nums").innerHTML+=
+`<button class="num-btn" onclick="betNum(${i})">${i}</button>`;
+}
+
+function login(){
+
+let mob=document.getElementById("mobile").value;
+
+if(mob.length!=10){
+msg("Enter valid number");
+return;
+}
+
+localStorage.setItem("user",mob);
+
+document.getElementById("login").style.display="none";
+document.getElementById("game").style.display="block";
+
+}
+
+function msg(t){
+document.getElementById("msg").innerText=t;
+}
+
+function betColor(c){
+color=c;
+}
+
+function betNum(n){
+number=n;
+}
+
+function play(){
+
+let amt=parseInt(document.getElementById("amount").value);
+
+if(!color || number===""){
+alert("Select Color & Number");
+return;
+}
+
+if(amt>balance){
+alert("Low Balance");
+return;
+}
+
+let colors=["Red","Green","Violet"];
+
+let winColor=colors[Math.floor(Math.random()*3)];
+let winNum=Math.floor(Math.random()*10);
+
+if(color==winColor && number==winNum){
+balance+=amt*5;
+document.getElementById("result").innerText="🎉 You Won!";
+}
+else{
+balance-=amt;
+document.getElementById("result").innerText="❌ You Lost";
+}
+
+document.getElementById("bal").innerText=balance;
+
+color="";
+number="";
+
+}
+
+if(localStorage.getItem("user")){
+document.getElementById("login").style.display="none";
+document.getElementById("game").style.display="block";
+}
+
+</script>
+
+</body>
+</html>
