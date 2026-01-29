@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Color Trading Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial;
+      background: #f2f2f2;
+      text-align: center;
+      padding: 50px;
+    }
+
+    button {
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 18px;
+      border: none;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .red { background: red; }
+    .green { background: green; }
+    .violet { background: purple; }
+  </style>
+</head>
+
+<body>
+
+<h2>🎯 Color Trading Demo</h2>
+
+<p id="result">Choose Color</p>
+
+<button class="red" onclick="play('Red')">Red</button>
+<button class="green" onclick="play('Green')">Green</button>
+<button class="violet" onclick="play('Violet')">Violet</button>
+
+<script>
+function play(color){
+  let colors = ["Red","Green","Violet"];
+  let win = colors[Math.floor(Math.random()*3)];
+
+  if(color == win){
+    document.getElementById("result").innerHTML =
+      "✅ You Win! (" + win + ")";
+  } else {
+    document.getElementById("result").innerHTML =
+      "❌ You Lost! (" + win + ")";
+  }
+}
+</script>
+
+</body>
+</html>
